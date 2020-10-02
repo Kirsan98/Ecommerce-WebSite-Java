@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = "ao.Main"
+mainClassName = "main.java.ao.Main"
 
 description = """TD4"""
 
