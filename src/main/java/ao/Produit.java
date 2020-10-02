@@ -1,5 +1,8 @@
 // ValueObject
 package main.java.ao;
+
+import java.util.*;
+
 public class Produit {
    
     private Reference ref;
@@ -31,11 +34,22 @@ public class Produit {
     }
 
     public String toString(){
-        String result = new String();
-        result = "Référence: "+ getRef() + ", Name: "+getNom()+", Description: "+getDescription()+ ", Price: "+getPrix();
-        return result;
+        return "Référence: "+ ref + ", Name: "+nom+", Description: "+description+ ", Price: "+prix+super.toString();
     }
-    // TODO Surcharger la méthode equals et hashcode pour faire en sorte que l'égalité soit une égalité de valeur.
+
+    public int hashCode() {
+        return Objects.hash(ref,nom,description,prix);
+    }
+
+   public boolean equals(Object obj) {
+       if( !(obj instanceof Produit)) return false;
+       Produit otherProduit = (Produit) obj;
+       boolean sameref = this.ref == otherProduit.getRef();
+       boolean samenom = this.nom == otherProduit.getNom();
+       boolean samedescription = this.description == otherProduit.getDescription();
+       boolean sameprix = this.prix == otherProduit.getPrix();
+       return sameref && samenom && samedescription && sameprix;
+   }
 }
 
 // ValueObject

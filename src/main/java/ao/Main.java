@@ -2,10 +2,10 @@ package main.java.ao;
 
 public class Main {
   public static void main(String[] args) {
-    Reference r;
-    Name n;
-    Description d;
-    Price p;
+    final Reference r;
+    final Name n;
+    final Description d;
+    final Price p;
     r = new Reference("A1");
     n = new Name("Table");
     d = new Description("Petite table à manger\n");
