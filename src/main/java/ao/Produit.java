@@ -22,16 +22,19 @@ public class Produit {
         return prix;
     }
 
-    public void Reference() {
+    public void Produit() {
     }
 
-    public void Reference(Reference ref, Name nom, Description description, Price prix) {
+    public void Produit(Reference ref, Name nom, Description description, Price prix) {
         this.ref = ref;
         this.nom = nom;
         this.description = description;
         this.prix = prix; 
     }
 
+    public String toString(){
+        System.out.println("Référence: "+ this.ref + ", Name: "+this.name+", Description: "+this.description+ ", Price: "+this.price);
+    }
     // TODO Surcharger la méthode equals et hashcode pour faire en sorte que l'égalité soit une égalité de valeur.
 }
 
