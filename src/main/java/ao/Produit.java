@@ -60,7 +60,7 @@ class Description{
 }
 
 class Reference{
-    private final String ref;
+    private String ref;
 
     public Reference(String ref){
         if (isAlphanumeric(ref) == true && ref.length()<=20){
@@ -82,7 +82,7 @@ class Reference{
 }
 
 class Price{
-    private final int prix;
+    private int prix;
 
     public Price(int prix){
         if(prix>0){
