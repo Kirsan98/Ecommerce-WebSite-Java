@@ -38,7 +38,7 @@ public class Reference {
     }
 
     public String toString(){
-        return "Référence: "+ ref + ", Name: "+name+", Description: "+description+ ", Price: "+price+super.toString();
+        return "Référence: "+ ref + ", Name: "+name+", Description: "+description+ ", Price: "+price+"\n";
     }
 
     public int hashCode() {

@@ -1,4 +1,4 @@
-// ValueObject
+/* // ValueObject
 package main.java.ao;
 
 import java.util.*;
@@ -79,7 +79,7 @@ class Name{
     }
 
     public String toString(){
-        return "Name: "+name+super.toString();
+        return "Name: "+nom+super.toString();
     }
 }
 
@@ -180,3 +180,4 @@ class Price{
         return "Price: "+prix+super.toString();
     }
 }
+ */

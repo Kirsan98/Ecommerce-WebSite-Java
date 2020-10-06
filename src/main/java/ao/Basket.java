@@ -6,8 +6,8 @@ import java.util.*;
 public class Basket {
 	//entity
 	private int sum ; // somme des lignes de commandes 
-	private HashMap<Reference, CommandLine> commandLine  ; // ligne de commande 
-										               // (K = réf, V = quantité)
+	private HashMap<Reference, CommandLine> commandLine  ; 	// ligne de commande 
+										               		// (K = ref, V = quantite)
 	private List<Reference> products  ; //liste de tout les produits disponible du magasin
 	private boolean basketClose ; 
 	
@@ -37,7 +37,7 @@ public class Basket {
 		return products;
 	}
 
-	//méthode
+	//methode
 	
 	public void buy(Reference product, int nbP) throws InvalidParameterException {
 		if (products.contains(product)|| nbP < 0) 

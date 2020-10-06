@@ -2,16 +2,8 @@ package main.java.ao;
 
 public class Main {
   public static void main(String[] args) {
-    final Reference r;
-    final Name n;
-    final Description d;
-    final Price p;
-    r = new Reference("A1");
-    n = new Name("Table");
-    d = new Description("Petite table à manger\n");
-    p = new Price(9);
 
-    Produit p1 = new Produit(r,n,d,p);
+    Reference p1 = new Reference("A1","Table","Petite table a manger",9);
     
     System.out.println("Hello World\n"+p1.toString());
   }
