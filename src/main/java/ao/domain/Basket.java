@@ -51,7 +51,7 @@ public class Basket {
             throw new IllegalArgumentException("Reference already in basket !\n");
         } 
 		if (products.contains(product) || nbP < 0) 
-			throw new InvalidParameterException()  ; 
+			throw new InvalidParameterException("Quantity of product must be greater than 0\n")  ; 
 		if (!basketClose) {
 			if (commandLine.containsKey(product)) {
 				int newPrice = commandLine.get(product).getAmount()+product.getPrice()*nbP;
@@ -64,7 +64,7 @@ public class Basket {
 			sum += nbP*product.getPrice() ; 
 		}
 		else {
-			throw new IllegalAccessError("This basket can't be modified !");
+			throw new IllegalAccessError("This basket is close it cannot be modified !\n");
 		}
 	}
 
@@ -74,8 +74,7 @@ public class Basket {
 	
 	public void remove(Reference product) throws InvalidParameterException {
 		if (products.contains(product)) 
-			throw new InvalidParameterException()  ;
-		
+			throw new InvalidParameterException();
 		if (!basketClose && commandLine.containsKey(product)) { 
 			int nbP = commandLine.get(product).getQuantity() - 1 ; 
 			if (nbP==0)
