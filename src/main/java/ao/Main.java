@@ -10,7 +10,8 @@ public class Main {
     
     Basket b = new Basket();
     
-    b.add(p1, 1);
+    b.add(p1, 9);
+
     System.out.println(b.toString());
   }
 }

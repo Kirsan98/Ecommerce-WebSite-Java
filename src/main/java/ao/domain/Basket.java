@@ -37,9 +37,8 @@ public class Basket {
 	}
 
 	//methode
-
 	public boolean isReferenceInBasket(Reference reference) {
-		if(reference.equals(commandLine.values())){
+		if (commandLine.containsKey(reference)){
 			return true;
 		}
 		else{
@@ -49,7 +48,7 @@ public class Basket {
 	
 	public void add(Reference product, int nbP) throws InvalidParameterException {
  		if (this.isReferenceInBasket(product)) {
-            throw new IllegalArgumentException("Reference already in basket !");
+            throw new IllegalArgumentException("Reference already in basket !\n");
         } 
 		if (products.contains(product) || nbP < 0) 
 			throw new InvalidParameterException()  ; 
