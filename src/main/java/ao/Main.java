@@ -24,7 +24,7 @@ public class Main {
     //Test basket closed
     //b.closeBasket(); 
 
-    b.add(p2,4);
+    b.add(p2,2);
     System.out.println(b.toString()+"\n");
     b.remove(p2);
     System.out.println(b.toString()+"\n");
