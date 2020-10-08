@@ -13,20 +13,13 @@ public class Basket {
 	
 	//constructeurr
 	public Basket() {
-		this.commandLine = new HashMap<Reference, CommandLine>() ; 
+		this.commandLine = new HashMap<>() ; 
 		this.basketClose = false ; 
-		for (Map.Entry me : commandLine.entrySet()) {
-			this.sum = this.sum + commandLine.get(me.getKey()).getAmount();
-        }
 	}
 	
 	//get
 	public int getSum() {
 		return sum;
-	}
-
-	public HashMap<Reference, CommandLine> getCommandLine() {
-		return commandLine;
 	}
 
 	//methode
@@ -40,21 +33,20 @@ public class Basket {
     }
 	
 	public void add(Reference product, int nbP) throws InvalidParameterException {
- 		if (this.isReferenceInBasket(product)) {
-            throw new IllegalArgumentException("Reference already in basket !\n");
+ 		if (this.isReferenceInBasket(product) || nbP<=0) {
+            throw new IllegalArgumentException();
         } 
-		if (nbP < 0) 
-			throw new InvalidParameterException("Quantity of product must be greater than 0\n")  ; 
 		if (!basketClose) {
+			this.sum += nbP * product.getPrice();
 			if (commandLine.containsKey(product)) {
 				int newPrice = commandLine.get(product).getAmount()+product.getPrice()*nbP;
 				int newQuantity = commandLine.get(product).getQuantity()+nbP;
-
 				CommandLine newCommandLine = new CommandLine(product, nbP);
 				commandLine.replace(product, newCommandLine) ;
 			}
-			else commandLine.put(product, new CommandLine(product, nbP)); 
-			sum += nbP*product.getPrice() ; 
+			else {
+				commandLine.put(product, new CommandLine(product, nbP)); 
+			}
 		}
 		else {
 			throw new IllegalAccessError("This basket is close it cannot be modified !\n");
@@ -66,35 +58,25 @@ public class Basket {
     }
 	
 	public void remove(Reference product) throws InvalidParameterException {
-		int newPrice;
 		if (!basketClose && commandLine.containsKey(product)) { 
 			int nbP = commandLine.get(product).getQuantity() - 1 ; 
+			this.sum -= product.getPrice();
 			if (nbP==0){
-				newPrice = getSum()-commandLine.get(product).getReference().getPrice();
-				sum = newPrice;
 				commandLine.remove(product) ; 
 			}
 			else {
 				CommandLine newCommandLine = new CommandLine(product, nbP);
-				commandLine.replace(product, newCommandLine) ;
-				newPrice = getSum()-commandLine.get(product).getReference().getPrice();
-				sum = newPrice;	
+				commandLine.replace(product, newCommandLine);
 			}
 		}
+		return;
 	}
 
 	public void closeBasket() {
 		basketClose = true ; 
 	}
-	
-	/* public String inBasket() {
-		String in = "" ; 
-		for (Map.Entry<Reference, CommandLine> m : commandLine.entrySet()) {
-			in = in + m.getKey().getname()+ " : quantity = " + m.getValue().getQuantity()+
-					" | price = "+m.getValue().getPrice() + "\n"; 
-		}
-		return in ; 
-	} */
-	
-	
+
+	public BasketDTO getDTO() {
+        return new BasketDTO(this.basketClose, new HashMap<>(this.commandLine));
+    }
 }

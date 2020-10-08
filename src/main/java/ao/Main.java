@@ -27,6 +27,7 @@ public class Main {
     b.add(p2,2);
     System.out.println(b.toString()+"\n");
     b.remove(p2);
+    //b.remove(p2);
     System.out.println(b.toString()+"\n");
   }
 }
