@@ -10,38 +10,40 @@ import main.java.ao.domain.Reference;
 import main.java.ao.domain.BasketRepository;
 
 public class BasketRepoJSON implements BasketRepository {
-    @Override
+    
     public void save(Basket basket) {
         BasketDTO basketDTO= basket.getDTO();
         StringBuffer jsonBuffer = new StringBuffer();
         BufferedWriter writer;
 
-        jsonBuffer.append("{\n\tisValidate: " + basketDTO.isValidate + ";\n");
-        jsonBuffer.append("\tcommandLines: [\n");
+        jsonBuffer.append("{\n\t\"isClose\" : "+ basketDTO.isValidate + ",\n");
+        jsonBuffer.append("\t\"commandLines\" : [\n");
         for (Reference ref : basketDTO.commandLines.keySet()) {
             jsonBuffer.append("\t\t{\n");
-            jsonBuffer.append("\t\t\t\"ref\": " + "\"" + ref.getid() +"\";\n");
-            jsonBuffer.append("\t\t\t\"name\": \"" + ref.getName() + "\";\n");
-            jsonBuffer.append("\t\t\t\"description\": \"" + ref.getDescription() + "\";\n");
-            jsonBuffer.append("\t\t\t\"price\": \"" + ref.getPrice()+ "\";\n");
-            jsonBuffer.append("\t\t\t\"quantity\": \"" + basketDTO.commandLines.get(ref) + "\";\n");
-            jsonBuffer.append("\t\t},\n");
+            jsonBuffer.append("\t\t\t\"ref\": " + "\"" + ref.getId() +"\",\n");
+            jsonBuffer.append("\t\t\t\"name\": \"" + ref.getName() + "\",\n");
+            jsonBuffer.append("\t\t\t\"description\": \"" + ref.getDescription() + "\",\n");
+            jsonBuffer.append("\t\t\t\"price\": \"" + ref.getPrice()+ "\"\n");
+            //jsonBuffer.append("\t\t\t\"quantity\": \"" + basketDTO.commandLines.get(ref) + "\"");
+            jsonBuffer.append("\t\t},\n");   
         }
         jsonBuffer.append("\t]\n");
         jsonBuffer.append("}\n");
 
         try {
-            writer = new BufferedWriter(new FileWriter("./save.json"));
+            writer = new BufferedWriter(new FileWriter("./saveJSON.json"));
             writer.write(jsonBuffer.toString());
             writer.close();
         } catch (IOException e) {
-            System.exit(0); // Pour renvoyer une exception faut modifier l'interface, moche ?
+            System.exit(0); 
         }
     }
 
-    @Override
     public Basket load() {
         return null;
     }
+
+    //public void update(Basket basket){}
+    //public Basket findBasketById(int basketId){}
 
 }

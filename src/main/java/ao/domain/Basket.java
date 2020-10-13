@@ -11,7 +11,7 @@ public class Basket {
 										               		// (K = ref, V = quantite 
 	private boolean basketClose ; 
 	
-	//constructeurr
+	//constructeur
 	public Basket() {
 		this.commandLine = new HashMap<>() ; 
 		this.basketClose = false ; 

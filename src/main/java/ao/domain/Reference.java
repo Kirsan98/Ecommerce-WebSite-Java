@@ -11,7 +11,7 @@ public class Reference {
     private final String description;
     private final int price;
 
-    public String getid() {
+    public String getId() {
         return id;
     }
 
@@ -44,18 +44,12 @@ public class Reference {
 
     public int hashCode() {
         return Objects.hash(id,name,description,price);
-    	/* int hash = 1 ; 
-    	hash = hash*31 + (id==null ? 0 : id.hashCode()) ;
-    	hash = hash*31 + (name==null ? 0 : name.hashCode()) ; 
-    	hash = hash*31 + (description==null ? 0 : description.hashCode()) ; 
-    	hash = hash*31 + price ; 
-    	return hash ; */ 
     }
 
     public boolean equals(Object obj) {
         if( !(obj instanceof Reference)) return false;
         Reference otherReference = (Reference) obj;
-        boolean sameid = this.id == otherReference.getid();
+        boolean sameid = this.id == otherReference.getId();
         boolean samename = this.name == otherReference.getName();
         boolean samedescription = this.description == otherReference.getDescription();
         boolean sameprice = this.price == otherReference.getPrice();

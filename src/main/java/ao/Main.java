@@ -1,5 +1,8 @@
 package main.java.ao;
 
+import main.java.ao.domain.BasketRepository;
+import main.java.ao.infra.BasketRepoJSON;
+import main.java.ao.infra.BasketRepoMemory;
 import main.java.ao.domain.Basket;
 import main.java.ao.domain.Reference;
 
@@ -29,5 +32,10 @@ public class Main {
     b.remove(p2);
     //b.remove(p2);
     System.out.println(b.toString()+"\n");
+
+    BasketRepository repo;
+    repo = new BasketRepoJSON();
+    repo.save(b);
+    System.out.println(repo.toString()+"\n");
   }
 }
