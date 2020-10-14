@@ -10,9 +10,11 @@ public class Basket {
 	private HashMap<Reference, CommandLine> commandLine  ; 	// ligne de commande 
 										               		// (K = ref, V = quantite 
 	private boolean basketClose ; 
+	private int id; 
 	
 	//constructeur
-	public Basket() {
+	public Basket(int id) {
+		this.id = id;
 		this.commandLine = new HashMap<>() ; 
 		this.basketClose = false ; 
 	}
@@ -20,6 +22,10 @@ public class Basket {
 	//get
 	public int getSum() {
 		return sum;
+	}
+
+	public int getId(){
+		return id;
 	}
 
 	//methode

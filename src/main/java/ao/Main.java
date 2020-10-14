@@ -12,7 +12,7 @@ public class Main {
     Reference p1 = new Reference("A1","Table","Petite table a manger",9);
     Reference p2 = new Reference("A2","Table","Petite table a manger",9);
     
-    Basket b = new Basket();
+    Basket b = new Basket(1);
     
     //Test ajout
     b.add(p1, 9);
