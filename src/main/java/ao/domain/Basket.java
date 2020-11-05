@@ -14,6 +14,7 @@ public class Basket {
 	
 	//constructeur
 	public Basket(int id) {
+		super () ; 
 		this.id = id;
 		this.commandLine = new HashMap<>() ; 
 		this.basketClose = false ; 

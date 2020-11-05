@@ -11,9 +11,10 @@ import java.util.Set;
 import main.java.ao.domain.Basket;
 
 public class BasketRepoMemory implements BasketRepository {
-    private Set<Basket> memory;
+    private static Set<Basket> memory;
 
     public BasketRepoMemory() {
+        super() ; 
         this.memory = new HashSet();
     }
 
