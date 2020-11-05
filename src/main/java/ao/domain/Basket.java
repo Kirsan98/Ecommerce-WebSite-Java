@@ -82,7 +82,7 @@ public class Basket {
 		basketClose = true ; 
 	}
 
-	public BasketDTO getDTO() {
+	/*public BasketDTO getDTO() {
         return new BasketDTO(this.basketClose, new HashMap<>(this.commandLine));
-    }
+    }*/
 }

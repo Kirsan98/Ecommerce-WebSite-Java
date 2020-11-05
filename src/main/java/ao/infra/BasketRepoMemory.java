@@ -1,7 +1,6 @@
 package main.java.ao.infra;
 
-import main.java.ao.domain.Basket;
-import main.java.ao.domain.BasketRepository;
+import main.java.ao.domain.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,11 +11,9 @@ import java.util.Set;
 import main.java.ao.domain.Basket;
 
 public class BasketRepoMemory implements BasketRepository {
-    //private Basket basket; 
     private Set<Basket> memory;
 
     public BasketRepoMemory() {
-        //this.basket = null;
         this.memory = new HashSet();
     }
 
@@ -26,20 +23,7 @@ public class BasketRepoMemory implements BasketRepository {
 
     public void save(Basket basket) {
         this.memory.add(basket);
-        /**
-         * File f = new File (basket.id);
-         * f.write(g...);
-         */
-         /**
-          * memory.add(basket);
-          */
     }
-
-    /* public Basket load() {
-        for (Set<Basket> m : memory) {
-            return m;
-        }
-    } */
 
     public Basket findBasketById(int basketId){
         for(Basket b : memory){

@@ -1,4 +1,4 @@
-package main.java.ao.infra;
+/* package main.java.ao.infra;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -39,14 +39,12 @@ public class BasketRepoJSON implements BasketRepository {
         }
     }
 
-    public Basket load() {
+    public Basket findBasketById(int basketId){
         return null;
     }
-
     //public void update(Basket basket){}
     /* public Basket findBasketById(int basketId){
         ao.domain.BasketDTO basketDTO = basket.getDTO;
         if (basketDTO.commandLines
-    } */
-
-}
+    } 
+}*/
