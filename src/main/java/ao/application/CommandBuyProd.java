@@ -4,13 +4,13 @@ import main.java.ao.domain.*;
 
 
 public class CommandBuyProd extends Command{
-    private int id ; 
+    private String id  ; 
     private BasketRepository repository ; 
     private Reference product ; 
     private int nbP ; 
     
     
-    CommandBuyProd(int id, BasketRepository repository, Reference product, int nbp) {
+    CommandBuyProd(String id , BasketRepository repository, Reference product, int nbp) {
         this.id = id ; 
         this.repository = repository ; 
         this.product = product ; 

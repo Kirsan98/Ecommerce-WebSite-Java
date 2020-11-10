@@ -4,19 +4,23 @@ import main.java.ao.domain.*;
 
 
 public class CommandRemoveProd extends Command{
-    private int id ; 
+    private String id ; 
     private BasketRepository repository ; 
     private Reference product ; 
+    private int nbProductToRemove;
     
-    
-    CommandRemoveProd(int id, BasketRepository repository, Reference product) {
+    CommandRemoveProd(String id, BasketRepository repository, Reference product, int nbProductToRemove) {
         this.id = id ; 
         this.repository = repository ; 
         this.product = product ; 
+        this.nbProductToRemove = nbProductToRemove;
     }
 
     public void execute() {
         Basket basket = repository.findBasketById(id) ; 
-        basket.remove(product);
+        while(nbProductToRemove>0){
+            basket.remove(product);
+            this.nbProductToRemove--;
+        }
     }
 }

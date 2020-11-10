@@ -7,5 +7,5 @@ import main.java.ao.domain.Basket;
 public interface BasketRepository {
     public void save(Basket basket); 
     public void add(Basket basket); 
-    public Basket findBasketById(int basketId);
+    public Basket findBasketById(String basketId);
 }

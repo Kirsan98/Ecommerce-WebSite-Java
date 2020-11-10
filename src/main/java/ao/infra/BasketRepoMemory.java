@@ -26,7 +26,7 @@ public class BasketRepoMemory implements BasketRepository {
         this.memory.add(basket);
     }
 
-    public Basket findBasketById(int basketId){
+    public Basket findBasketById(String basketId){
         for(Basket b : memory){
             if(b.getId()==basketId) {
                 return b;
