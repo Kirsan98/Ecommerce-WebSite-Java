@@ -3,24 +3,25 @@ package main.java.ao.application ;
 import java.util.*;
 
 public class CommandList {
-    private List<Command> toExecute;
+    private static List<Command> toExecute;
     
     public CommandList(){
         this.toExecute = new ArrayList<Command>() ;
     }
 
-    public void addCommand(Command c){
+    public synchronized void addCommand(Command c){
         this.toExecute.add(c) ; 
         System.out.println("Command ajouté : "+toExecute.toString()+"\n");
     }
 
-    public Command executeCommand() {
-        Command c = toExecute.remove(0) ; 
+    public synchronized void executeCommand() {
+        toExecute.get(0).execute(); 
+        toExecute.get(0).toString() ; 
+        toExecute.remove(0) ; 
         System.out.println("Command executé: "+toExecute.toString()+"\n");
-        return c; 
     }
 
-    public String toString(){
+    public synchronized String toString(){
         String result = "Command : ";
         for (Command command : toExecute) {
             result = result + command;
@@ -28,4 +29,7 @@ public class CommandList {
         return result;
     }
 
+    public synchronized int getSize(){
+        return toExecute.size() ; 
+    }
 }

@@ -8,12 +8,13 @@ public class Worker extends Thread {
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         while(true) {
             //System.out.println("toDo list: "+toDo.toString()+"\n");
-            Command c = this.toDo.executeCommand() ; 
-            if(c!=null){
-                c.execute();
+            // Command c = this.toDo.executeCommand() ; 
+            if(toDo.getSize()>0){
+                toDo.executeCommand();
+                // System.out.println(c.toString());
             }
         }
     }

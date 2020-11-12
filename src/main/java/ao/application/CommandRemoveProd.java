@@ -1,5 +1,6 @@
 package main.java.ao.application ;
 
+import main.java.ao.domain.Reference;
 import main.java.ao.domain.*;
 
 
@@ -22,6 +23,6 @@ public class CommandRemoveProd extends Command{
     }
 
     public String toString(){
-        return "Remove product to basket command\n";
+        return "Remove product ("+product.getName()+")  to basket command\n";
     }
 }

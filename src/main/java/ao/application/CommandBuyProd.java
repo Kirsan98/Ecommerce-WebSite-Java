@@ -1,5 +1,6 @@
 package main.java.ao.application ;
 
+import main.java.ao.domain.Reference;
 import main.java.ao.domain.*;
 
 
@@ -19,6 +20,6 @@ public class CommandBuyProd extends Command{
     }
 
     public String toString(){
-        return "Add product to basket command\n";
+        return "Add product "+product.getName()+" to basket command\n";
     }
 }
