@@ -50,12 +50,18 @@ public class BasketService{
     //Query
     public boolean productInBasket(String id , Reference product) {
         this.cache = repository.findBasketById(id) ; 
+        System.out.println("Product : ("+product.getName()+ ") is in Basket :"+cache.isReferenceInBasket(product)+"\n");
         return cache.isReferenceInBasket(product) ; 
     }
 
     public int totalInBasket(String id ) {
         this.cache = repository.findBasketById(id) ; 
+        System.out.println("Total in basket : "+cache.getSum());
         return cache.getSum() ; 
+    }
+
+    public String toString(){
+        return "Cache " + this.cache + " Repository " + this.repository + " CommandList "+ this.commandWait + "Nb product to remove " + this.nbProductToRemove + " \n";
     }
 
 

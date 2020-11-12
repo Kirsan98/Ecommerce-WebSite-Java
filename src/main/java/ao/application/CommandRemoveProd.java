@@ -23,6 +23,6 @@ public class CommandRemoveProd extends Command{
     }
 
     public String toString(){
-        return "Remove product ("+product.getName()+")  to basket command\n";
+        return "Remove product ("+product.getName()+") "+this.nbProductToRemove+" times"+"  to basket command\n";
     }
 }

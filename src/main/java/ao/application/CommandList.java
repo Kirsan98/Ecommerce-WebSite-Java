@@ -17,8 +17,8 @@ public class CommandList {
     public synchronized void executeCommand() {
         toExecute.get(0).execute(); 
         toExecute.get(0).toString() ; 
-        toExecute.remove(0) ; 
         System.out.println("Command executé: "+toExecute.toString()+"\n");
+        toExecute.remove(0) ; 
     }
 
     public synchronized String toString(){
