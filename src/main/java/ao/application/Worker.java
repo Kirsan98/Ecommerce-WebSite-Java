@@ -3,16 +3,16 @@ package main.java.ao.application ;
 public class Worker extends Thread {
     private CommandList toDo ; 
 
-    public Worker() {
-        this.toDo = new CommandList();
+    public Worker(CommandList toDo) {
+        this.toDo = toDo;
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         while(true) {
-            if(toDo.getSize()!=0){
-                System.out.println("toDo list: "+toDo.toString()+"\n");
-                Command c = toDo.executeCommand() ; 
+            //System.out.println("toDo list: "+toDo.toString()+"\n");
+            Command c = this.toDo.executeCommand() ; 
+            if(c!=null){
                 c.execute();
             }
         }

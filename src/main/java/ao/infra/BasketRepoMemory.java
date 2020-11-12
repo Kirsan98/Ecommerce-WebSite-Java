@@ -11,7 +11,7 @@ import java.util.Set;
 import main.java.ao.domain.Basket;
 
 public class BasketRepoMemory implements BasketRepository {
-    private static Set<Basket> memory;
+    private Set<Basket> memory;
 
     public BasketRepoMemory() {
         super() ; 
@@ -24,6 +24,11 @@ public class BasketRepoMemory implements BasketRepository {
 
     public void save(Basket basket) {
         this.memory.add(basket);
+    }
+
+    public void update(Basket cache){
+        memory.remove(cache);
+        memory.add(cache);
     }
 
     public Basket findBasketById(String basketId){

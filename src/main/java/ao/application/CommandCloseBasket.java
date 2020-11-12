@@ -17,4 +17,8 @@ public class CommandCloseBasket extends Command{
         Basket basket = repository.findBasketById(id) ; 
         basket.closeBasket();
     }
+
+    public String toString(){
+        return "Close basket command\n";
+    }
 }

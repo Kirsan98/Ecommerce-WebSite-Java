@@ -4,20 +4,21 @@ import main.java.ao.domain.*;
 
 
 public class CommandBuyProd extends Command{
-    private String id  ; 
-    private BasketRepository repository ; 
+    private Basket cache;
     private Reference product ; 
     private int nbP ; 
     
     
-    CommandBuyProd(String id , BasketRepository repository, Reference product, int nbp) {
-        this.id = id ; 
-        this.repository = repository ; 
+    CommandBuyProd(Basket cache, Reference product, int nbp) {
+        this.cache = cache;
         this.product = product ; 
         this.nbP = nbp ; 
     }
     public void execute() {
-        Basket basket = repository.findBasketById(id) ; 
-        basket.add(product, nbP);
+        this.cache.add(product, nbP);
+    }
+
+    public String toString(){
+        return "Add product to basket command\n";
     }
 }

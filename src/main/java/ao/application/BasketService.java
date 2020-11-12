@@ -12,26 +12,35 @@ public class BasketService{
     private CommandList commandWait ; 
 
     public BasketService(BasketRepository repository) {
+        this.cache = null;
         this.repository = repository;
         this.commandWait = new CommandList();
-        Worker w = new Worker() ; 
+        Worker w = new Worker(this.commandWait) ; 
         w.start();
     }
 
     //command
     public String createNewBasket(){ 
-        String uniqueID = UUID.randomUUID().toString();
-        this.cache = new Basket(uniqueID);
+        String basketId = UUID.randomUUID().toString();
+        this.cache = new Basket(basketId);
         repository.add(this.cache);
-        return cache.getId();
+        return basketId;
     }
 
     public void buyProduct(String id, Reference product, int nbP){
-        commandWait.addCommand(new CommandBuyProd(id,repository,product,nbP));
+        if(cache.getId() != id){
+            cache = repository.findBasketById(id);
+        }
+        commandWait.addCommand(new CommandBuyProd(cache, product, nbP));
+        repository.update(cache);
     }
 
     public void removeProduct(String id, Reference product,int nbProductToRemove) {
-        commandWait.addCommand(new CommandRemoveProd(id,repository,product,nbProductToRemove));
+        if(cache.getId() != id){
+            cache = repository.findBasketById(id);
+        }
+        commandWait.addCommand(new CommandRemoveProd(cache,product,nbProductToRemove));
+        repository.update(cache);
     }
     
     public void closeBasket(String id ){ 
