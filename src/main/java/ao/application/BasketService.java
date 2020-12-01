@@ -28,29 +28,21 @@ public class BasketService{
     }
 
     public void buyProduct(String id, Reference product, int nbP){
-        if(cache.getId() != id){
-            cache = repository.findBasketById(id);
-        }
-        commandWait.addCommand(new CommandBuyProd(cache, product, nbP));
-        repository.update(cache);
+        commandWait.addCommand(new CommandBuyProd(repository, id, product, nbP));
     }
 
     public void removeProduct(String id, Reference product,int nbProductToRemove) {
-        if(cache.getId() != id){
-            cache = repository.findBasketById(id);
-        }
-        commandWait.addCommand(new CommandRemoveProd(cache,product,nbProductToRemove));
-        repository.update(cache);
+        commandWait.addCommand(new CommandRemoveProd(repository, id, product,nbProductToRemove));
     }
     
     public void closeBasket(String id ){ 
-        commandWait.addCommand(new CommandCloseBasket(id,repository));
+        commandWait.addCommand(new CommandCloseBasket(repository, id));
     }
 
     //Query
     public boolean productInBasket(String id , Reference product) {
         this.cache = repository.findBasketById(id) ; 
-        System.out.println("Product : ("+product.getName()+ ") is in Basket :"+cache.isReferenceInBasket(product)+"\n");
+        System.out.println("Product : \""+product.getName()+ "\" is in Basket :"+cache.isReferenceInBasket(product)+"\n");
         return cache.isReferenceInBasket(product) ; 
     }
 

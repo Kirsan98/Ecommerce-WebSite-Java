@@ -14,6 +14,7 @@ public class Worker extends Thread {
             // Command c = this.toDo.executeCommand() ; 
             if(toDo.getSize()>0){
                 toDo.executeCommand();
+                
                 // System.out.println(c.toString());
             }
         }

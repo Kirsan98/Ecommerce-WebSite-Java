@@ -31,6 +31,11 @@ public class BasketRepoMemory implements BasketRepository {
         memory.add(cache);
     }
 
+    public void updateById(String id){
+        Basket b = findBasketById(id) ; 
+        update(b);
+    }
+
     public Basket findBasketById(String basketId){
         for(Basket b : memory){
             if(b.getId()==basketId) {

@@ -3,14 +3,14 @@ package main.java.ao.application ;
 import java.util.*;
 
 public class CommandList {
-    private static List<Command> toExecute;
+    private static List<Command> toExecute ;
     
     public CommandList(){
-        this.toExecute = new ArrayList<Command>() ;
+        toExecute = new ArrayList<Command>() ;
     }
 
     public synchronized void addCommand(Command c){
-        this.toExecute.add(c) ; 
+        toExecute.add(c) ; 
         System.out.println("Command ajouté : "+toExecute.toString()+"\n");
     }
 

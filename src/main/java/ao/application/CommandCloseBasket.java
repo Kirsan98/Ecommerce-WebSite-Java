@@ -5,20 +5,19 @@ import main.java.ao.domain.*;
 
 public class CommandCloseBasket extends Command{
     private String id  ; 
-    private BasketRepository repository ; 
-
     
-    CommandCloseBasket(String id , BasketRepository repository) {
+    CommandCloseBasket(BasketRepository repository, String id) {
+        super(repository) ; 
         this.id = id ; 
-        this.repository = repository ; 
     }
 
     public void execute() {
-        Basket basket = repository.findBasketById(id) ; 
+        Basket basket = super.repo.findBasketById(id) ; 
         basket.closeBasket();
+        super.repo.updateById(id) ; 
     }
 
     public String toString(){
-        return "Close basket command\n";
+        return "Close basket command";
     }
 }

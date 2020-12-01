@@ -5,24 +5,30 @@ import main.java.ao.domain.*;
 
 
 public class CommandRemoveProd extends Command{
-    private Basket cache;
+    private String id ;
+    private Basket cache ; 
     private Reference product ; 
     private int nbProductToRemove;
     
-    CommandRemoveProd(Basket cache, Reference product, int nbProductToRemove) {
-        this.cache = cache;
+    CommandRemoveProd(BasketRepository repo, String id, Reference product, int nbProductToRemove) {
+        super(repo) ; 
+        this.id = id ; 
+        this.cache = super.repo.findBasketById(id);
         this.product = product ; 
         this.nbProductToRemove = nbProductToRemove;
     }
 
     public void execute() {
-        while(nbProductToRemove>0){
+        // this.cache = super.repo.findBasketById(id);
+        int i = nbProductToRemove ;
+        while(i>0){
             cache.remove(product);
-            this.nbProductToRemove--;
+            i--;
         }
+        super.repo.updateById(this.id) ; 
     }
 
     public String toString(){
-        return "Remove product ("+product.getName()+") "+this.nbProductToRemove+" times"+"  to basket command\n";
+        return "Remove product \""+product.getName()+"\" "+this.nbProductToRemove+" times"+"  to basket command";
     }
 }
