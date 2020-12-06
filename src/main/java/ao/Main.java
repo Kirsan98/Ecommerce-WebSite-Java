@@ -9,7 +9,6 @@ import java.lang.Thread;
 
 public class Main {
   public static void main(String[] args) throws InterruptedException{
-
     Reference p1 = new Reference("A1","Table","Petite table a manger",9);
     Reference p2 = new Reference("A2","Table","Petite table a manger",9);
     
@@ -36,21 +35,45 @@ public class Main {
     String id = bs.createNewBasket();
     System.out.println(id);
     bs.productInBasket(id, p1);
-    
     bs.buyProduct(id, p1, 4);
-    // Thread.sleep(1000);
     bs.productInBasket(id, p1);
     bs.totalInBasket(id);
-
     bs.removeProduct(id, p1, 1);
-    // Thread.sleep(1000);
     System.out.println(bs.totalInBasket(id));
-    //bs.removeProduct(id, p1, 4); // Ne doit pas fonctionner 
     bs.removeProduct(id, p1, 3); // Doit fonctionner 
-    // Thread.sleep(1000);
     System.out.println(bs.totalInBasket(id));
-    
     bs.closeBasket(id);
-    // Thread.sleep(1000);
-  }
+
+
+    // boolean done = false;
+    // String basketId;
+    // BasketRepository repo = new BasketRepoMemory();
+    // BasketService basketService = new BasketService(repo); 
+
+    //System.out.println("#####################\n"+"#Test CLI\n"+"#####################\n");
+    // while(!done){
+    //   try{
+    //     String answer = System.console().readLine();
+    //     int intAnswer = Integer.parseInt(answer);
+    //     if( intAnswer == 1 ){
+    //       basketId = basketService.createNewBasket();
+    //       System.out.println("Your basket is created \n");
+    //       done = true;
+    //     }
+    //     if( intAnswer==2){
+    //       System.out.println("Enter basket id:");
+    //       String answerBasketId = System.console().readLine();
+    //       basketId = answerBasketId;
+    //       Basket basket = repo.findBasketById(basketId);
+    //       if(basket!=null){
+    //         System.out.println("Your basket has been found");
+    //         done = true;
+    //       }
+    //     }
+    //   }
+    //   finally{
+    //     System.out.println("Something went wrong");
+    //   }
+    // }
+  } 
 }

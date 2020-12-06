@@ -28,27 +28,36 @@ public class BasketService{
     }
 
     public void buyProduct(String id, Reference product, int nbP){
-        commandWait.addCommand(new CommandBuyProd(repository, id, product, nbP));
+        cache = repository.findBasketById(id);
+        commandWait.addCommand(new CommandBuyProd(repository, cache, product, nbP));
     }
 
     public void removeProduct(String id, Reference product,int nbProductToRemove) {
-        commandWait.addCommand(new CommandRemoveProd(repository, id, product,nbProductToRemove));
+        cache = repository.findBasketById(id);
+        commandWait.addCommand(new CommandRemoveProd(repository, cache, product,nbProductToRemove));
     }
     
     public void closeBasket(String id ){ 
-        commandWait.addCommand(new CommandCloseBasket(repository, id));
+        cache = repository.findBasketById(id);
+        commandWait.addCommand(new CommandCloseBasket(repository, cache));
     }
 
     //Query
     public boolean productInBasket(String id , Reference product) {
-        this.cache = repository.findBasketById(id) ; 
         System.out.println("Product : \""+product.getName()+ "\" is in Basket :"+cache.isReferenceInBasket(product)+"\n");
-        return cache.isReferenceInBasket(product) ; 
+        if (id == cache.getId()){
+            return cache.isReferenceInBasket(product);
+        }
+        cache = repository.findBasketById(id);
+        return cache.isReferenceInBasket(product);
     }
 
     public int totalInBasket(String id ) {
-        this.cache = repository.findBasketById(id) ; 
-        System.out.println("Total in basket : "+cache.getSum());
+        if (id == cache.getId()){
+            System.out.println("Total in basket : "+cache.getSum());
+            return cache.getSum();
+        }
+        cache = repository.findBasketById(id) ; 
         return cache.getSum() ; 
     }
 

@@ -10,12 +10,8 @@ public class Worker extends Thread {
     @Override
     public void run() {
         while(true) {
-            //System.out.println("toDo list: "+toDo.toString()+"\n");
-            // Command c = this.toDo.executeCommand() ; 
             if(toDo.getSize()>0){
                 toDo.executeCommand();
-                
-                // System.out.println(c.toString());
             }
         }
     }

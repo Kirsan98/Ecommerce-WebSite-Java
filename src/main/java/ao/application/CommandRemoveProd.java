@@ -5,15 +5,15 @@ import main.java.ao.domain.*;
 
 
 public class CommandRemoveProd extends Command{
-    private String id ;
+    //private String id ;
     private Basket cache ; 
     private Reference product ; 
     private int nbProductToRemove;
     
-    CommandRemoveProd(BasketRepository repo, String id, Reference product, int nbProductToRemove) {
+    CommandRemoveProd(BasketRepository repo, Basket cache, Reference product, int nbProductToRemove) {
         super(repo) ; 
-        this.id = id ; 
-        this.cache = super.repo.findBasketById(id);
+        //this.id = id ; 
+        this.cache = cache;
         this.product = product ; 
         this.nbProductToRemove = nbProductToRemove;
     }
@@ -25,7 +25,7 @@ public class CommandRemoveProd extends Command{
             cache.remove(product);
             i--;
         }
-        super.repo.updateById(this.id) ; 
+        super.repo.update(cache);
     }
 
     public String toString(){

@@ -4,17 +4,19 @@ import main.java.ao.domain.*;
 
 
 public class CommandCloseBasket extends Command{
-    private String id  ; 
+    //private String id  ; 
+    private Basket cache;
     
-    CommandCloseBasket(BasketRepository repository, String id) {
-        super(repository) ; 
-        this.id = id ; 
+    CommandCloseBasket(BasketRepository repository, Basket cache) {
+        super(repository) ;
+        this.cache = cache; 
+        //this.id = id ; 
     }
 
     public void execute() {
-        Basket basket = super.repo.findBasketById(id) ; 
-        basket.closeBasket();
-        super.repo.updateById(id) ; 
+        //Basket basket = super.repo.findBasketById(id) ; 
+        cache.closeBasket();
+        super.repo.update(cache);
     }
 
     public String toString(){
