@@ -29,7 +29,7 @@ public class Reference {
 
     public Reference(String id, String name, String description, int price) throws InvalidParameterException {
     	if (!(isAlphanumeric(id) == true && id.length()<=20 && id!=null) || 
-    			!( name!=null && name.length()<20) || (description==null || description.length()>200)){
+    			!( name!=null && name.length()<20) || !(description!=null && description.length()<=200)){
     		throw new InvalidParameterException();
         }
     	this.id = id ; 

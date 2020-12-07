@@ -5,10 +5,13 @@ import main.java.ao.infra.BasketRepoMemory;
 import main.java.ao.application.BasketService;
 import main.java.ao.domain.Basket;
 import main.java.ao.domain.Reference;
+import main.java.ao.ui.View ; 
 import java.lang.Thread;
+import java.util.Scanner; 
 
 public class Main {
   public static void main(String[] args) throws InterruptedException{
+/*
     Reference p1 = new Reference("A1","Table","Petite table a manger",9);
     Reference p2 = new Reference("A2","Table","Petite table a manger",9);
     
@@ -44,16 +47,17 @@ public class Main {
     System.out.println(bs.totalInBasket(id));
     bs.closeBasket(id);
 
-
+*/
     // boolean done = false;
     // String basketId;
     // BasketRepository repo = new BasketRepoMemory();
     // BasketService basketService = new BasketService(repo); 
 
-    //System.out.println("#####################\n"+"#Test CLI\n"+"#####################\n");
+    // System.out.println("#####################\n"+"#Test CLI\n"+"#####################\n");
     // while(!done){
     //   try{
-    //     String answer = System.console().readLine();
+    //     Scanner input = new Scanner(System.in) ; 
+    //     String answer = input.nextLine();
     //     int intAnswer = Integer.parseInt(answer);
     //     if( intAnswer == 1 ){
     //       basketId = basketService.createNewBasket();
@@ -75,5 +79,16 @@ public class Main {
     //     System.out.println("Something went wrong");
     //   }
     // }
+
+    System.out.println("#####################\n"+"#Test MVC\n"+"#####################\n");
+    // try{
+    // String c = System.console().readLine("comment t'apelles-tu ? ") ; 
+    // System.out.println("enchanté monsieur "+c);
+    // }
+    // catch(Exception e){
+    //   System.out.print(e);
+    // }
+    View churros = new View() ; 
+    churros.start();
   } 
 }
