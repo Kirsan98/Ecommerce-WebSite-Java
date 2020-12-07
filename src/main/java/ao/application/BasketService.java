@@ -65,11 +65,11 @@ public class BasketService{
         return "Cache " + this.cache + " Repository " + this.repository + " CommandList "+ this.commandWait + "Nb product to remove " + this.nbProductToRemove + " \n";
     }
 
-    public boolean inRepo(String id){
+    public boolean getInRepo(String id){
         if (this.repository.findBasketById(id)==null)
             return false ; 
         return  true ; 
     }
 
-
+    
 }

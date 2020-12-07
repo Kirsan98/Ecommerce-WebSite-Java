@@ -7,9 +7,6 @@ import java.util.Scanner;
 
 import main.java.ao.domain.Reference;
 
-/**
- * connais le modèle et le controlleur 
- */
 
 public class View extends Thread {
 
@@ -26,6 +23,7 @@ public class View extends Thread {
         this.controller = new Controller() ;
         this.stateView = StateViewer.MENU ; 
         this.scan = new Scanner(System.in) ;  
+        this.name = null ; 
     }
 
     public void run() {
@@ -33,13 +31,13 @@ public class View extends Thread {
         while(!end) {
             switch (this.stateView) {
                 case MENU : 
-                    System.out.println("Bienvenu, vous êtes dans Menu ^^\n "
-                                        + "comment vous vous apellez ?" ) ;
-                    // CONTROLLER TODO
-                    String name = scan.nextLine() ; 
-                    this.name = name ; 
-
-                    this.stateView = StateViewer.BASKET ; 
+                    if (this.name==null) {
+                        System.out.println("Bienvenu, vous êtes dans Menu ^^\n "
+                                            + "comment vous vous apellez ?" ) ;
+                        String name = scan.nextLine() ; 
+                        this.name = name ; 
+                    }
+                    menu() ;  
                     break ; 
                 case BASKET : 
                     System.out.println("Un panier vous sera attribué pour que vous puissez faire vos course") ; 
@@ -47,18 +45,21 @@ public class View extends Thread {
                     this.stateView = StateViewer.SHOP ; 
                     break ; 
                 case SHOP : 
-                    System.out.println("Un panier vous sera attribué pour que vous puissez faire vos course") ; 
-                    // TODO
+                    System.out.println("") ; 
                     shop() ; 
                     if (this.model.getBasketEnd()) {
                         this.stateView = StateViewer.FINISH ; 
                     }
+                    this.stateView = StateViewer.MENU ; 
+                    break ;
+                case DELETE : 
+                    System.out.println("Vous vous apprétez à supprimer un produit de votre panier") ;
+                    delete() ; 
                     break ; 
                 case FINISH : 
-                    System.out.println("Merci de votre achat, se fut un réel plaisir de vous accueillir "+ this.name) ;
-                    // TODO
+                    System.out.println("Merci beaucoup, se fut un réel plaisir de vous accueillir "+ this.name) ;
                     end = finish() ; 
-                    
+                    if (!end) this.stateView = StateViewer.MENU ; 
                     break ; 
             }
         }
@@ -68,7 +69,7 @@ public class View extends Thread {
         boolean done = false ; 
         while(!done){
             // if (model.getStepCode() == Model.Step.INITIAL_STEP) {
-                System.out.println("Bienvenue "+this.name+",  tappez (1) pour créer un panier ou (2) pour ouvrir panier existant");
+                System.out.println(this.name+",  tappez (1) pour créer un panier ou (2) pour ouvrir panier existant");
                 String answer = scan.nextLine(); 
                 int intAnswer = Integer.parseInt(answer) ; 
                 if (intAnswer==1) {
@@ -96,30 +97,28 @@ public class View extends Thread {
 
     private void shop() {
         boolean done = false ;
-        // MODEL TODO
         List<Reference> inShop = model.getReference() ; 
         for (int i = 0 ; i<inShop.size() ; i++)
             System.out.println(this.name+" tappez "+i+" pour acheter "+inShop.get(i).getName() + ". Cette article est à "+inShop.get(i).getPrice());
         while (!done){
-            System.out.println("veuillez choisir un article ou tapez -1 pour stopper vos achats") ;
+            System.out.println("veuillez choisir un article ou tapez (-1) pour stopper vos achats") ;
             String answer = scan.nextLine(); 
             int intAnswer = Integer.parseInt(answer) ; 
             if (intAnswer>=0 && intAnswer<inShop.size()){
-                // CONTROLLER TODO
                 System.out.println("Combien en voulez-vous") ;
                 String answer2 = scan.nextLine() ; 
-                int intAnswer2 = Integer.parseInt(answer) ;
+                int intAnswer2 = Integer.parseInt(answer2) ;
 
                 this.controller.buyArticle(inShop.get(intAnswer), intAnswer2) ;
                 done = true ;  
             }else if (intAnswer==-1){
-                // CONTROLLER TODO
-                this.controller.closeBasket() ; 
+                this.controller.closeBasket() ;
+                done = true ;  
             }
         }
     }
 
-    public boolean finish() {
+    private boolean finish() {
         System.out.println(this.name + " saisissez (1) pour quitter  ou (2) pour retourner menu") ; 
         String answer = scan.nextLine() ; 
         int intAnswer = Integer.parseInt(answer) ;
@@ -128,5 +127,49 @@ public class View extends Thread {
             return true ; 
         }
         return false ; 
+    }
+
+    private void menu() {
+        System.out.println("Bienvenue à toi, "+this.name+"\n Voici le Menu, veuillez faire votre choix :\n" );
+        boolean done = false ; 
+        while (!done){
+            System.out.println("Tapez ("+1+") pour choisir ou changer votre panier \n"+
+                            "panier actuel :"+basketID) ; 
+            System.out.println("Tapez ("+2+") pour aller dans le magasin") ; 
+            System.out.println("Tapez("+3+")pour voir votre panier"); 
+            System.out.println("Tapez ("+4+") pour cloturer votre achat"); 
+            String answer = scan.nextLine(); 
+            int intAnswer = Integer.parseInt(answer) ; 
+            switch (intAnswer) {
+                case 1 : 
+                    this.stateView = StateViewer.BASKET ;
+                    done = true ; 
+                    break ;  
+                case 2 : 
+                    this.stateView = StateViewer.SHOP ; 
+                    done = true ; 
+                    break ; 
+                case 3 : 
+                    System.out.println("Alors voici ce que tu as dans ton panier actuel :\n"+
+                                        model.inMyBasket());
+                    done = true ; 
+                    break ; 
+                case 4 : 
+                    controller.closeBasket();
+                    done = true ; 
+                    break ; 
+                case -1 : 
+                    this.stateView = StateViewer.FINISH ; 
+                    done = true ; 
+                    break ; 
+                default : 
+                System.out.println("vous avez tapez un mauvais numéro, attention !"); 
+            }
+        }
+    }
+
+    // TODO 
+    private void delete(){
+        System.out.print("voici la liste de votre panier\n"+model.inMyBasket()) ; 
     }
 }

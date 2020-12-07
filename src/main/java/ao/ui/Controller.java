@@ -25,16 +25,24 @@ public class Controller{
     }
 
     public boolean inRegister(String basketID){
-        return command.inRepo(basketID) ;
+        return command.getInRepo(basketID) ;
     }
 
     public void buyArticle(Reference ref, int nbP) {
         command.buyProduct(this.id, ref, nbP);
+        model.updatebasketRef(ref);
     }
 
     public void closeBasket() {
         command.closeBasket(this.id);
         model.updatebasketClose(true);
+    }
+
+    public void deleteRef(Reference ref, int nbP){
+        command.removeProduct(id, ref, nbP);
+        if (!command.productInBasket(id, ref)){
+            model.removeRef(ref) ; 
+        }
     }
 
 }

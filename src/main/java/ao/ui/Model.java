@@ -4,10 +4,6 @@ import main.java.ao.domain.Reference;
 import main.java.ao.application.*;
 import java.util.* ; 
 
-/**
- * Model : caractéristique
- * il contient les objets abstraites de UI 
- */
 
 public class Model {
 
@@ -49,6 +45,8 @@ public class Model {
 
     private static List<Reference> products = new ArrayList<Reference>() ; 
     private static boolean basketClose ;  
+    public static Set<Reference>  inBasket = new HashSet<Reference>() ;  
+
 
     public Model() {
         basketClose = false ; 
@@ -74,7 +72,24 @@ public class Model {
         return basketClose ; 
     }
 
-    public void updatebasketClose(boolean b) {
+    // Doit seulement être utiliser par le controlleur
+    public void updatebasketClose(boolean b) { 
         basketClose = b ; 
+    }
+
+    public void updatebasketRef(Reference newRef){
+        this.inBasket.add(newRef) ; 
+    }
+
+    public String inMyBasket(){
+        String inside = " "; 
+        for (Reference ref : this.inBasket) {
+            inside += ref.toString() ; 
+        }
+        return inside; 
+    }
+
+    public void removeRef(Reference ref){
+        this.inBasket.remove(ref) ; 
     }
 }

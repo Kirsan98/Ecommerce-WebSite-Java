@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) throws InterruptedException{
-/*
+
     Reference p1 = new Reference("A1","Table","Petite table a manger",9);
     Reference p2 = new Reference("A2","Table","Petite table a manger",9);
     
@@ -47,7 +47,7 @@ public class Main {
     System.out.println(bs.totalInBasket(id));
     bs.closeBasket(id);
 
-*/
+
     // boolean done = false;
     // String basketId;
     // BasketRepository repo = new BasketRepoMemory();
