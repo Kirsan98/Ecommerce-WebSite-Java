@@ -3,7 +3,7 @@ package main.java.ao.application ;
 import java.util.*;
 
 public class CommandList {
-    private static List<Command> toExecute ;
+    private List<Command> toExecute ;
     
     public CommandList(){
         toExecute = new ArrayList<Command>() ;
@@ -15,10 +15,12 @@ public class CommandList {
     }
 
     public synchronized void executeCommand() {
-        toExecute.get(0).execute(); 
-        toExecute.get(0).toString() ; 
-        System.out.println("Command executé: "+toExecute.toString()+"\n");
-        toExecute.remove(0) ; 
+        if(toExecute.size()>0){
+            toExecute.get(0).execute(); 
+            //toExecute.get(0).toString() ; Inutile ?
+            System.out.println("Command executé: "+toExecute.toString()+"\n");
+            toExecute.remove(0) ; 
+        }
     }
 
     public synchronized String toString(){

@@ -9,7 +9,6 @@ public class CommandBuyProd extends Command{
     private Reference product ; 
     private int nbP ; 
     
-    
     CommandBuyProd(BasketRepository repo, Basket cache, Reference product, int nbp) {
         super(repo) ; 
         //this.id = id;

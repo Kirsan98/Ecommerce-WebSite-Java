@@ -18,10 +18,6 @@ public class BasketRepoMemory implements BasketRepository {
         this.memory = new HashSet();
     }
 
-    public void add(Basket basket){
-        this.memory.add(basket);
-    }
-
     public void save(Basket basket) {
         this.memory.add(basket);
     }

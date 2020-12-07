@@ -10,12 +10,12 @@ public class Controller{
     private BasketService command ; 
     private String id ; 
     private BasketRepository repository; 
-    private Model model ; 
+    //private Model model ; 
 
     public Controller() {
         repository = new BasketRepoMemory(); 
         command = new BasketService(repository) ; 
-        model = new Model() ; 
+      //  model = new Model() ; 
         
     }
 
@@ -28,17 +28,17 @@ public class Controller{
         return command.getInRepo(basketID) ;
     }
 
-    public void buyArticle(Reference ref, int nbP) {
+    public void buyArticle(Reference ref, int nbP, Model model) {
         command.buyProduct(this.id, ref, nbP);
-        model.updatebasketRef(ref);
+        model.updatebasketRef(ref,nbP);
     }
 
-    public void closeBasket() {
+    public void closeBasket(Model model) {
         command.closeBasket(this.id);
         model.updatebasketClose(true);
     }
 
-    public void deleteRef(Reference ref, int nbP){
+    public void deleteRef(Reference ref, int nbP, Model model){
         command.removeProduct(id, ref, nbP);
         if (!command.productInBasket(id, ref)){
             model.removeRef(ref) ; 

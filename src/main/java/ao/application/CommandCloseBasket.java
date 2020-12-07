@@ -14,9 +14,10 @@ public class CommandCloseBasket extends Command{
     }
 
     public void execute() {
-        //Basket basket = super.repo.findBasketById(id) ; 
-        cache.closeBasket();
-        super.repo.update(cache);
+        if(cache!=null){
+            cache.closeBasket();
+            super.repo.update(cache);
+        }
     }
 
     public String toString(){

@@ -13,6 +13,9 @@ public class Worker extends Thread {
             if(toDo.getSize()>0){
                 toDo.executeCommand();
             }
+            else{
+                continue;
+            }
         }
     }
 }

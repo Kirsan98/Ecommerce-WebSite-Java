@@ -23,7 +23,7 @@ public class BasketService{
     public String createNewBasket(){ 
         String basketId = UUID.randomUUID().toString();
         this.cache = new Basket(basketId);
-        repository.add(this.cache);
+        repository.save(this.cache);
         return basketId;
     }
 
