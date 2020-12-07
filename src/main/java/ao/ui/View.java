@@ -2,7 +2,9 @@ package main.java.ao.ui;
 
 import main.java.ao.application.*;
 import java.lang.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner; 
 
 import main.java.ao.domain.Reference;
@@ -41,7 +43,7 @@ public class View extends Thread {
                 case BASKET : 
                     System.out.println("Un panier vous sera attribué pour que vous puissez faire vos course") ; 
                     refresh();
-                    this.stateView = StateViewer.SHOP ; 
+                    this.stateView = StateViewer.MENU ; 
                     break ; 
                 case SHOP : 
                     System.out.println("") ; 
@@ -54,6 +56,7 @@ public class View extends Thread {
                 case DELETE : 
                     System.out.println("Vous vous apprétez à supprimer un produit de votre panier") ;
                     delete() ; 
+                    this.stateView = StateViewer.MENU ; 
                     break ; 
                 case FINISH : 
                     System.out.println("Merci beaucoup, se fut un réel plaisir de vous accueillir "+ this.name) ;
@@ -67,27 +70,24 @@ public class View extends Thread {
     public void refresh() {
         boolean done = false ; 
         while(!done){
-                System.out.println(this.name+",  tappez (1) pour créer un panier ou (2) pour ouvrir panier existant");
-                String answer = scan.nextLine(); 
-                int intAnswer = Integer.parseInt(answer) ; 
-                if (intAnswer==1) {
-                    this.basketID = controller.newBasket() ; 
-                    done = true ; 
+            System.out.println(this.name+",  tappez (1) pour créer un panier ou (2) pour ouvrir panier existant");
+            String answer = scan.nextLine(); 
+            int intAnswer = Integer.parseInt(answer) ; 
+            if (intAnswer==1) {
+                this.basketID = controller.newBasket() ; 
+                done = true ; 
+            }
+            else if (intAnswer == 2){
+                System.out.println("Enter basket id:");
+                String answerBasketId = scan.nextLine();
+                if(controller.inRegister(basketID)){
+                    System.out.println("Your basket has been found");
+                    this.basketID = answerBasketId ; 
+                    done = true; 
+                }else{
+                    System.out.println("Your basket has not been found");
                 }
-                else if (intAnswer == 2){
-                    System.out.println("Enter basket id:");
-                    String answerBasketId = scan.nextLine();
-                    if(controller.inRegister(basketID)){
-                        System.out.println("Your basket has been found");
-                        this.basketID = answerBasketId ; 
-                        done = true; 
-                    }else{
-                        System.out.println("Your basket has not been found");
-                    }
-                }
-            // }else{
-                // done = true ; 
-            // }
+            }
         }
     }
 
@@ -131,13 +131,14 @@ public class View extends Thread {
     }
 
     private void menu() {
-        System.out.println("Bienvenue à toi, "+this.name+"\n Voici le Menu, et voici ton id de panier: " + basketID + " veuillez faire votre choix :\n" );
+        System.out.println("\n\nBienvenue à toi, "+this.name+"\n Voici le Menu, et voici ton id de panier: " + basketID + " veuillez faire votre choix :\n" );
         boolean done = false ; 
         while (!done){
             System.out.println("Tapez ("+1+") pour choisir ou changer votre panier "); 
             System.out.println("Tapez ("+2+") pour aller dans le magasin") ; 
             System.out.println("Tapez ("+3+") pour voir votre panier"); 
-            System.out.println("Tapez ("+4+") pour cloturer votre achat et fermer votre panier!"); 
+            System.out.println("Tapez ("+4+") pour supprimer un produit dans votre panier"); 
+            System.out.println("Tapez ("+5+") pour cloturer votre achat et fermer votre panier!"); 
             String answer = scan.nextLine(); 
             int intAnswer = Integer.parseInt(answer) ; 
             switch (intAnswer) {
@@ -159,8 +160,12 @@ public class View extends Thread {
                     }
                     done = true ; 
                     break ; 
-                case 4 : 
+                case 5 : 
                     controller.closeBasket(model);
+                    done = true ; 
+                    break ; 
+                case 4 : 
+                    this.stateView = StateViewer.DELETE ; 
                     done = true ; 
                     break ; 
                 case -1 : 
@@ -175,6 +180,37 @@ public class View extends Thread {
 
     // TODO 
     private void delete(){
-        System.out.print("voici la liste de votre panier\n"+model.inMyBasket()) ; 
+        System.out.print("voici la liste de votre panier\n"+model.inMyBasket()+"\n\n") ;
+        int i = 0 ;  
+        HashMap<Reference,Integer> commandLine = model.getInbasket() ; 
+        for (Map.Entry m : commandLine.entrySet()) {
+            System.out.println("Tapez ("+i+") pour supprimer "+m.getKey());
+            i++ ; 
+        }
+        boolean done = false ; 
+        while (!done){
+            System.out.println("que souhaitez vous supp ?") ; 
+            String answer = scan.nextLine() ; 
+            int intAnswer = Integer.parseInt(answer) ; 
+            if (intAnswer>=0 && intAnswer<i){
+                System.out.println("D'accord nous allons supprimer ce produit de votre panier");
+                System.out.println("combien en souhaiter vous supp ?") ; 
+                String answer2 = scan.nextLine() ; 
+                int intAnswer2 = Integer.parseInt(answer2) ; 
+                i = intAnswer ; 
+                Reference ref ;
+                for (Map.Entry<Reference,Integer> m : commandLine.entrySet()) {
+                    if (i==0) {
+                        controller.deleteRef(m.getKey(), intAnswer2, model); 
+                        break ; 
+                    }
+                    i-- ; 
+                }
+                done = true ; 
+            }else{
+                System.out.println("Mauvaise saisie, veuillez recommencer") ; 
+            }
+        }
+
     }
 }

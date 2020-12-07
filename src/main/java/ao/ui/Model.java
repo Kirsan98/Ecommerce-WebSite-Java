@@ -61,4 +61,8 @@ public class Model {
     public void removeRef(Reference ref){
         this.inBasket.remove(ref) ; 
     }
+
+    public HashMap<Reference,Integer> getInbasket() {
+        return this.inBasket ; 
+    }
 }
