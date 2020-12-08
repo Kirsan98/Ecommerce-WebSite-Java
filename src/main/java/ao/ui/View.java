@@ -112,8 +112,6 @@ public class View extends Thread {
                 done = true ;  
             }else if (intAnswer==-1){
                 this.stateView = StateViewer.MENU;
-                menu();
-                //this.controller.closeBasket(model) ;
                 done = true ;  
             }
         }
@@ -177,8 +175,7 @@ public class View extends Thread {
             }
         }
     }
-
-    // TODO 
+ 
     private void delete(){
         System.out.print("voici la liste de votre panier\n"+model.inMyBasket()+"\n\n") ;
         int i = 0 ;  
@@ -207,6 +204,9 @@ public class View extends Thread {
                     i-- ; 
                 }
                 done = true ; 
+            }else if (intAnswer==-1){
+                this.stateView = StateViewer.MENU;
+                done = true ;  
             }else{
                 System.out.println("Mauvaise saisie, veuillez recommencer") ; 
             }

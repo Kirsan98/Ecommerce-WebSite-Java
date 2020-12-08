@@ -10,12 +10,10 @@ public class Controller{
     private BasketService command ; 
     private String id ; 
     private BasketRepository repository; 
-    //private Model model ; 
 
     public Controller() {
         repository = new BasketRepoMemory(); 
         command = new BasketService(repository) ; 
-      //  model = new Model() ; 
         
     }
 
